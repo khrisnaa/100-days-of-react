@@ -12,18 +12,18 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-export const ZoomParallax = () => {
+export const ZoomParallaxSticky = () => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ["start start", "end end"],
+    offset: ["start start", "end 200%"],
   });
 
   const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
   const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
   const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);
   const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
+  const opacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
 
   const pictures = [
     {
@@ -55,20 +55,21 @@ export const ZoomParallax = () => {
       scale: scale8,
     },
   ];
+
   return (
-    <main className="bg-gray-950">
+    <div className="bg-rose-900">
       <div className=" h-[50vh]" />
       <div ref={container} className="h-[300vh] relative ">
-        <div className="sticky top-0 h-screen   overflow-hidden">
+        <div className="sticky h-screen top-0 overflow-hidden">
           {pictures.map(({ src, scale }, i) => {
             return (
               <motion.div
-                className="w-full h-full absolute top-0 flex items-center justify-center"
+                className="h-full w-full absolute flex items-center justify-center "
                 style={{ scale }}
               >
                 <div
                   className={cn(
-                    "h-[25vh] w-[25vw]   relative",
+                    "relative h-[25vh] w-[25vw] ",
                     i == 1 && "-top-[30vh] left-[5vw] w-[35vw] h-[30vh]",
                     i == 2 && "-top-[10vh] -left-[25vw] w-[20vw] h-[45vh]",
                     i == 3 && "left-[27.5vw] w-[25vw] h-[25vh]",
@@ -82,15 +83,21 @@ export const ZoomParallax = () => {
                     fill
                     alt="image"
                     placeholder="blur"
-                    className="object-cover "
+                    className="object-cover"
                   />
                 </div>
               </motion.div>
             );
           })}
+          <motion.div
+            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            style={{ opacity }}
+          >
+            <h1 className="text-8xl text-white font-extrabold">WELCOME</h1>
+          </motion.div>
         </div>
       </div>
-      <div className="  h-[100vh]" />
-    </main>
+      <div className="h-[100vh] " />
+    </div>
   );
 };
