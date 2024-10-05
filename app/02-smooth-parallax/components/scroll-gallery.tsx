@@ -14,7 +14,7 @@ export const ScrollGallery = () => {
     offset: ["start end", "end start"],
   });
 
-  const { width, height } = useDimension();
+  const { height } = useDimension();
 
   const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
@@ -24,7 +24,7 @@ export const ScrollGallery = () => {
   return (
     <div>
       <div className="h-screen" />
-      <div className="h-[175vh] w-full bg-gray-900 flex flex-row gap-[2vw] p-[2vw] box-border overflow-hidden">
+      <div className="h-[175vh] w-full bg-gray-950 flex flex-row gap-[2vw] p-[2vw] box-border overflow-hidden">
         <Column
           y={y}
           images={[
@@ -32,7 +32,7 @@ export const ScrollGallery = () => {
             "/images/image (2).jpeg",
             "/images/image (3).jpeg",
           ]}
-          className="-top-[55%]"
+          className="-top-[30%]"
         />
         <Column
           y={y2}
@@ -41,7 +41,7 @@ export const ScrollGallery = () => {
             "/images/image (5).jpeg",
             "/images/image (6).jpeg",
           ]}
-          className="-top-[95%]"
+          className="-top-[55%]"
         />
         <Column
           y={y3}
@@ -50,7 +50,7 @@ export const ScrollGallery = () => {
             "/images/image (8).jpeg",
             "/images/image (9).jpeg",
           ]}
-          className="-top-[45%]"
+          className="-top-[20%]"
         />
         <Column
           y={y4}
@@ -59,7 +59,7 @@ export const ScrollGallery = () => {
             "/images/image (11).jpeg",
             "/images/image (12).jpeg",
           ]}
-          className="-top-[75%]"
+          className="-top-[45%]"
         />
       </div>
       <div className="h-screen" />
