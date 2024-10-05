@@ -56,7 +56,7 @@ export const HorizontalGallery = () => {
           />
           <Column
             x={x3}
-            className="right-[150%]"
+            className="right-[180%]"
             images={[
               "/images/image (9).jpeg",
               "/images/image (10).jpeg",
