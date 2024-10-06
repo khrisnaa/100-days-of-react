@@ -41,10 +41,10 @@ const Text = ({
       className="flex gap-8 w-full whitespace-nowrap relative"
       style={{ left, x }}
     >
-      <p className="text-9xl font-anton uppercase">super bass</p>
-      <p className="text-9xl font-anton uppercase">super bass</p>
-      <p className="text-9xl font-anton uppercase">super bass</p>
-      <p className="text-9xl font-anton uppercase">super bass</p>
+      <p className="text-9xl font-anton uppercase">super nova</p>
+      <p className="text-9xl font-anton uppercase">super nova</p>
+      <p className="text-9xl font-anton uppercase">super nova</p>
+      <p className="text-9xl font-anton uppercase">super nova</p>
     </motion.div>
   );
 };

@@ -18,6 +18,19 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    //@ts-ignore
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".vertical-lr": {
+          writingMode: "vertical-lr",
+        },
+        ".text-vertical": {
+          textOrientation: "upright",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+  ],
 };
 export default config;
