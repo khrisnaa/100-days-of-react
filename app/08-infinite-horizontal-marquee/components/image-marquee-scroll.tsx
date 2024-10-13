@@ -1,8 +1,14 @@
 "use client";
 
-import { animate, useMotionValue, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 
 const images = [
@@ -16,25 +22,22 @@ const images = [
   "/images/image (8).jpeg",
 ];
 
-export const ImageMarquee = () => {
+export const ImageMarqueeScroll = () => {
+  let [ref, { width }] = useMeasure();
+  const xTranslation = useMotionValue(0);
+
   const FAST_DURATION = 25;
   const SLOW_DURATION = 75;
-
   const [duration, setDuration] = useState(FAST_DURATION);
-
-  let [ref, { width }] = useMeasure();
-
-  const xTranslation = useMotionValue(0);
 
   const [mustFinish, setMustFinish] = useState(false);
   const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
     let controls;
-    let finalPostion = -width / 2 - 8;
-
+    const finalPostion = -width / 2 - 8;
     if (mustFinish) {
-      controls = animate(xTranslation, [xTranslation.get(), -finalPostion], {
+      controls = animate(xTranslation, [xTranslation.get(), finalPostion], {
         duration: duration * (1 - xTranslation.get() / finalPostion),
         ease: "linear",
         onComplete: () => {
@@ -43,9 +46,9 @@ export const ImageMarquee = () => {
         },
       });
     } else {
-      controls = animate(xTranslation, [0, -finalPostion], {
-        duration: duration,
+      controls = animate(xTranslation, [0, finalPostion], {
         ease: "linear",
+        duration,
         repeat: Infinity,
       });
     }
@@ -56,22 +59,22 @@ export const ImageMarquee = () => {
   return (
     <div>
       <div className="h-screen" />
-      <div className="py-8 relative overflow-hidden bg-black flex flex-col justify-center h-screen">
+      <div className="bg-black h-screen relative overflow-hidden flex flex-col justify-center">
         <motion.div
-          style={{ x: xTranslation }}
-          className="absolute flex right-0 gap-4"
           ref={ref}
+          style={{ x: xTranslation }}
+          className="flex absolute left-0 gap-4"
           onHoverStart={() => {
-            setMustFinish(true);
             setDuration(SLOW_DURATION);
+            setMustFinish(true);
           }}
           onHoverEnd={() => {
-            setMustFinish(true);
             setDuration(FAST_DURATION);
+            setMustFinish(true);
           }}
         >
           {[...images, ...images].map((image, i) => (
-            <Card image={image} />
+            <Card image={image} key={i} />
           ))}
         </motion.div>
       </div>
@@ -82,7 +85,7 @@ export const ImageMarquee = () => {
 
 const Card = ({ image }: { image: string }) => {
   return (
-    <div className="rounded-xl relative overflow-hidden h-[400px] min-w-[400px]">
+    <div className="rounded-xl relative overflow-hidden h-[200px] min-w-[200px]">
       <Image src={image} alt="image" fill className="object-cover" />
     </div>
   );
