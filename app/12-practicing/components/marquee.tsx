@@ -12,7 +12,7 @@ export const Marquee = ({ direction }: { direction: "left" | "right" }) => {
   const [ref, { width }] = useMeasure();
   const xTranslation = useMotionValue(0);
 
-  const FAST_DURATION = 50;
+  const FAST_DURATION = 75;
   const SLOW_DURATION = 100;
   const [duration, setDuration] = useState(FAST_DURATION);
 
